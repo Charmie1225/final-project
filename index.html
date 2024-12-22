@@ -10,14 +10,25 @@
 
     <div class="quiz-container">
         <h1>Quiz App</h1>
-        <div id="quiz">
+        
+        <!-- Category Selection -->
+        <div id="category-selection">
+            <h2>Select a Category</h2>
+            <button class="category-btn" onclick="startQuiz('science')">Science</button>
+            <button class="category-btn" onclick="startQuiz('computer')">Computer</button>
+            <button class="category-btn" onclick="startQuiz('biology')">Biology</button>
+            <button class="category-btn" onclick="startQuiz('math')">Math</button>
+            <button class="category-btn" onclick="startQuiz('history')">History</button>
+        </div>
+
+        <!-- Quiz content -->
+        <div id="quiz" style="display:none;">
             <div id="question-container">
                 <p id="question">Question will be here</p>
                 <div id="options-container">
                     <!-- Options will be added here dynamically -->
                 </div>
             </div>
-
             <button id="next-btn">Next</button>
             <p id="score"></p>
         </div>
