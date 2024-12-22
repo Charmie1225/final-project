@@ -23,6 +23,25 @@ h1 {
     margin-bottom: 20px;
 }
 
+#category-selection {
+    display: block;
+}
+
+.category-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 80%;
+}
+
+.category-btn:hover {
+    background-color: #45a049;
+}
+
 #question-container {
     margin-bottom: 20px;
 }
