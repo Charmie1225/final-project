@@ -1,33 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App</title>
-    <link rel="stylesheet" href="styles.css"> 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuickQuiz</title>
+  <meta name="color-scheme" content="dark light" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="quiz-container">
-        <h1>Quiz App</h1>
-        <div id="category-container">
-            <h2>Select a Category</h2>
-            <div id="categories">
-                <button onclick="startQuiz('science')">Science</button>
-                <button onclick="startQuiz('computer')">Computer</button>
-                <button onclick="startQuiz('biology')">Biology</button>
-                <button onclick="startQuiz('math')">Math</button>
-                <button onclick="startQuiz('history')">History</button>
-            </div>
-        </div>
-        <div id="quiz" style="display: none;">
-            <h2 id="question"></h2>
-            <div id="options"></div>
-        </div>
-        <div id="results" style="display: none;">
-            <h2 id="score"></h2>
-            <button onclick="resetQuiz()">Start Over</button>
-        </div>
+  <!-- Top nav -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <span class="brand__name">QuickQuiz</span>
+      </div>
+      <nav class="nav__links">
+        <button class="link" data-open="about">About</button>
+        <button class="link" data-open="help">Help</button>
+      </nav>
     </div>
-    <script src="script.js"></script>
+  </header>
+
+  <div class="hero">
+    <main class="container">
+      <!-- SETUP CARD -->
+      <section id="setup" class="card section">
+        <h1 class="h1">Test your knowledge</h1>
+        <p class="muted">Pick a category, number of questions, and difficulty. You’ll have a timer—good luck!</p>
+
+        <form id="setupForm" class="grid two gap">
+          <label class="field">
+            <span>Category</span>
+            <select id="category"></select>
+          </label>
+
+          <label class="field">
+            <span>Difficulty</span>
+            <select id="difficulty">
+              <option value="any">Any</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Questions</span>
+            <!-- default to 20 -->
+            <input id="count" type="number" min="5" max="50" step="1" value="20" />
+          </label>
+
+          <label class="field">
+            <span>Timer (min)</span>
+            <input id="minutes" type="number" min="0" max="60" step="1" value="5" />
+          </label>
+
+          <div class="row">
+            <label class="check">
+              <input id="shuffle" type="checkbox" checked />
+              <span>Shuffle questions</span>
+            </label>
+          </div>
+
+          <div class="row end">
+            <button type="submit" class="btn btn--primary">Start Quiz</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="quiz" class="card section hidden" aria-live="polite">
+        <div class="quiz__top">
+          <div class="progress"><div id="progressBar" class="progress__bar"></div></div>
+          <div class="status">
+            <span id="counter" class="badge">Q 1/20</span>
+            <span id="timer" class="badge">05:00</span>
+          </div>
+        </div>
+
+        <h2 id="questionText" class="h2">Question</h2>
+        <form id="answers" class="answers" role="radiogroup" aria-label="Answer choices"></form>
+
+        <div class="quiz__actions">
+          <button id="prevBtn" class="btn" type="button">← Prev</button>
+          <button id="nextBtn" class="btn" type="button">Next →</button>
+          <button id="submitBtn" class="btn btn--primary" type="button">Submit</button>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section id="results" class="card section hidden">
+        <h2 class="h2">Your results</h2>
+        <div class="stats">
+          <div class="stat"><span id="scorePct" class="big">0%</span><small>Score</small></div>
+          <div class="stat"><span id="scoreRaw" class="big">0/0</span><small>Correct</small></div>
+          <div class="stat"><span id="timeUsed" class="big">0:00</span><small>Time</small></div>
+        </div>
+
+        <details class="review">
+          <summary>Review answers</summary>
+          <ol id="reviewList" class="review__list"></ol>
+        </details>
+
+        <div class="results__actions">
+          <button id="retryBtn" class="btn" type="button">Try Again</button>
+          <button id="newQuizBtn" class="btn btn--primary" type="button">New Quiz</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modals -->
+  <dialog id="about">
+    <h3>About</h3>
+    <p>QuickQuiz pulls questions from Open Trivia DB so each category can have 20+ questions. If you’re offline, it falls back to a smaller built-in set.</p>
+    <form method="dialog"><button class="btn">Close</button></form>
+  </dialog>
+
+  <dialog id="help">
+    <h3>Help</h3>
+    <ul>
+      <li>Choose options in the setup card and press <strong>Start Quiz</strong>.</li>
+      <li>Use <kbd>1–4</kbd> to pick an option; <kbd>N</kbd> next, <kbd>P</kbd> previous.</li>
+      <li>Set the timer to 0 to disable timing.</li>
+    </ul>
+    <form method="dialog"><button class="btn">Close</button></form>
+  </dialog>
+
+  <footer class="footer container">
+    <small class="muted">© 2025 QuickQuiz. Built by you ✨</small>
+  </footer>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
