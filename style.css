@@ -1,128 +1,105 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5; 
-    color: #333; 
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+:root{
+  --bg:#0b1220;           /* dark navy */
+  --panel:#111827;        /* card bg */
+  --text:#e6e9ef;
+  --muted:#9aa3b2;
+  --ring:rgba(255,255,255,.08);
+  --grad:linear-gradient(135deg,#ff5860,#6a7bff);
+  --radius:18px;
+  --container:1100px;
+  --shadow:0 10px 25px rgba(0,0,0,.35);
 }
 
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text); background:var(--bg); line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.container{max-width:var(--container); margin-inline:auto; padding:0 20px}
+.hidden{display:none !important}
 
-#quiz-container {
-    background-color: #ffffff; 
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
-    transition: all 0.3s ease;
+.h1{font-size:clamp(2.2rem,4vw,3.3rem); font-weight:800; margin:0 0 .25rem}
+.h2{font-size:clamp(1.4rem,3vw,2rem); font-weight:800; margin:.25rem 0 .5rem}
+.big{font-size:2rem; font-weight:800}
+.muted{color:var(--muted)}
+.badge{padding:6px 10px; border-radius:999px; border:1px solid var(--ring); background:#0e1526}
+
+.nav{
+  position:sticky; top:0; z-index:40; backdrop-filter:saturate(120%) blur(8px);
+  background:rgba(11,18,32,.65); border-bottom:1px solid var(--ring);
+}
+.nav__inner{display:flex; align-items:center; justify-content:space-between; height:64px}
+.brand{display:flex; align-items:center; gap:10px}
+.brand__logo{width:28px;height:28px; border-radius:6px; background:var(--grad)}
+.brand__name{font-weight:700}
+.nav__links{display:flex; gap:12px}
+.link{background:transparent;border:0;color:var(--text);cursor:pointer}
+
+.hero{
+  padding:56px 0 8px;
+  background:radial-gradient(800px 400px at 50% -10%, rgba(255,255,255,.06), transparent 60%);
 }
 
-/* Heading styles */
-h1 {
-    font-size: 2.5em;
-    color: #3498db; 
-    margin-bottom: 20px;
+.section{padding:28px}
+.card{
+  background:var(--panel); border:1px solid var(--ring); border-radius:var(--radius); box-shadow:var(--shadow);
 }
 
-/* Category section styles */
-#category-container h2 {
-    font-size: 1.8em;
-    color: #2c3e50; 
-    margin-bottom: 20px;
+/* Grid used in setup card */
+.grid.two{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.grid.gap{gap:16px}
+.row{display:flex; align-items:center; gap:10px}
+.row.end{justify-content:flex-end}
+
+/* Form controls */
+.field{display:flex; flex-direction:column; gap:6px}
+.field input,.field select{
+  width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--ring);
+  background:#0e1526; color:var(--text);
 }
+.check input{margin-right:8px}
 
-#categories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 16px; border-radius:12px; border:1px solid var(--ring);
+  background:#182033; color:var(--text); font-weight:700; cursor:pointer; text-decoration:none;
+  box-shadow:var(--shadow); transition:transform .15s ease;
 }
+.btn:hover{transform:translateY(-1px)}
+.btn--primary{background:var(--grad); border-color:transparent}
 
+/* Progress / quiz */
+.quiz__top{display:flex; align-items:center; gap:16px}
+.progress{height:10px; background:#0e1526; border:1px solid var(--ring); border-radius:999px; overflow:hidden; flex:1}
+.progress__bar{height:100%; background:var(--grad); width:0%}
+.status{display:flex; align-items:center; gap:10px}
 
-button {
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2em;
-    color: white;
-    background-color: #3498db; 
-    transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+.answers{display:grid; gap:12px; margin-top:12px}
+.answer{
+  display:flex; gap:12px; align-items:flex-start; padding:12px; border-radius:12px;
+  background:#0e1526; border:1px solid var(--ring); cursor:pointer;
 }
+.answer input{margin-top:3px}
+.answer.correct{outline:2px solid #36d399; background:#0f2a20}
+.answer.wrong{outline:2px solid #ff6b6b; background:#2a0f10}
 
-button:hover {
-    background-color: #2980b9; 
-    transform: scale(1.1);
-}
+.quiz__actions{margin-top:16px; display:flex; gap:10px; justify-content:flex-end}
 
-button:active {
-    transform: scale(0.98);
-}
+/* Results */
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:10px 0 16px}
+.stat{background:#0e1526; border:1px solid var(--ring); border-radius:14px; padding:14px; text-align:center}
 
+.review{margin-top:12px}
+.review__list{display:grid; gap:10px; padding-left:22px}
+.review__list li{background:#0e1526; border:1px solid var(--ring); border-radius:12px; padding:10px}
 
-#quiz {
-    display: none;
-    padding: 20px;
-    background-color: #ecf0f1; 
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+.footer{padding:26px 0 60px}
 
-#quiz h2 {
-    font-size: 1.6em;
-    color: #2c3e50; 
-    margin-bottom: 20px;
-}
-
-#options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#options button {
-    background-color: #2ecc71; 
-}
-
-
-#options button.correct {
-    background-color: #2ecc71; 
-}
-
-#options button.incorrect {
-    background-color: #e74c3c; 
-}
-
-#options button:disabled {
-    opacity: 0.6;
-}
-
-
-#results {
-    display: none;
-}
-
-#score {
-    font-size: 1.5em;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
-#results button {
-    background-color: #8e44ad; 
-    color: white;
-    padding: 10px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease;
-}
-
-#results button:hover {
-    background-color: #9b59b6;
+/* Responsive */
+@media (max-width: 760px){
+  .grid.two{grid-template-columns:1fr}
+  .quiz__top{flex-direction:column; align-items:stretch}
+  .status{margin-left:0; justify-content:space-between}
 }
