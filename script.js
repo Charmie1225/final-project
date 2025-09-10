@@ -1,131 +1,296 @@
-const quizData = {
-    science: [
-        { question: "What is the chemical symbol for water?", options: ["H2O", "O2", "CO2", "H2"], correctAnswer: "H2O" },
-        { question: "What is the powerhouse of the cell?", options: ["Nucleus", "Mitochondria", "Ribosome", "Golgi apparatus"], correctAnswer: "Mitochondria" },
-        { question: "What planet is known as the Red Planet?", options: ["Mars", "Venus", "Jupiter", "Mercury"], correctAnswer: "Mars" },
-        { question: "What gas do plants absorb during photosynthesis?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"], correctAnswer: "Carbon Dioxide" },
-        { question: "What is the largest planet in our solar system?", options: ["Earth", "Saturn", "Jupiter", "Neptune"], correctAnswer: "Jupiter" },
-        { question: "What is the human body's largest organ?", options: ["Liver", "Skin", "Brain", "Heart"], correctAnswer: "Skin" },
-        { question: "What is the boiling point of water?", options: ["90°C", "100°C", "80°C", "110°C"], correctAnswer: "100°C" },
-        { question: "What is the most abundant gas in Earth's atmosphere?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"], correctAnswer: "Nitrogen" },
-        { question: "What is the chemical formula for table salt?", options: ["NaCl", "KCl", "CaCl2", "MgCl2"], correctAnswer: "NaCl" },
-        { question: "What is the speed of light?", options: ["300,000 km/s", "150,000 km/s", "100,000 km/s", "200,000 km/s"], correctAnswer: "300,000 km/s" }
-    ],
-    computer: [
-        { question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "Hyperlink Text Markup Language", "High Text Markup Language", "Hyper Transfer Markup Language"], correctAnswer: "Hyper Text Markup Language" },
-        { question: "Which programming language is used for AI?", options: ["Python", "JavaScript", "C", "SQL"], correctAnswer: "Python" },
-        { question: "What does CSS stand for?", options: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"], correctAnswer: "Cascading Style Sheets" },
-        { question: "What is the main function of a CPU?", options: ["Processing data", "Storing data", "Connecting devices", "Displaying output"], correctAnswer: "Processing data" },
-        { question: "What does SQL stand for?", options: ["Structured Query Language", "Sequential Query Language", "Standard Query Language", "Short Query Language"], correctAnswer: "Structured Query Language" },
-        { question: "What is a loop in programming?", options: ["A sequence of repeated instructions", "A function definition", "A variable declaration", "An input operation"], correctAnswer: "A sequence of repeated instructions" },
-        { question: "Which company developed the Java programming language?", options: ["Sun Microsystems", "Microsoft", "Google", "Apple"], correctAnswer: "Sun Microsystems" },
-        { question: "What is an IP address?", options: ["A unique identifier for a device", "A programming term", "A file format", "A hardware component"], correctAnswer: "A unique identifier for a device" },
-        { question: "What does API stand for?", options: ["Application Programming Interface", "Advanced Programming Integration", "Artificial Programming Intelligence", "Application Processing Integration"], correctAnswer: "Application Programming Interface" },
-        { question: "Which language is commonly used for web development?", options: ["HTML", "Python", "C++", "Java"], correctAnswer: "HTML" }
-    ],
-    biology: [
-        { question: "What is the basic unit of life?", options: ["Cell", "Tissue", "Organ", "Molecule"], correctAnswer: "Cell" },
-        { question: "Which blood type is known as the universal donor?", options: ["O-", "O+", "AB+", "B-"], correctAnswer: "O-" },
-        { question: "What is the process by which plants make food?", options: ["Photosynthesis", "Respiration", "Digestion", "Fermentation"], correctAnswer: "Photosynthesis" },
-        { question: "What is the human skeleton made up of?", options: ["Bones", "Muscles", "Cartilage", "Cells"], correctAnswer: "Bones" },
-        { question: "What is the genetic material in most living organisms?", options: ["DNA", "RNA", "Protein", "Carbohydrates"], correctAnswer: "DNA" },
-        { question: "What organ pumps blood throughout the body?", options: ["Heart", "Lungs", "Kidney", "Brain"], correctAnswer: "Heart" },
-        { question: "What is the main function of the lungs?", options: ["Oxygen exchange", "Digestion", "Pumping blood", "Producing hormones"], correctAnswer: "Oxygen exchange" },
-        { question: "What part of the brain controls balance?", options: ["Cerebellum", "Cerebrum", "Brainstem", "Hippocampus"], correctAnswer: "Cerebellum" },
-        { question: "What is the largest bone in the human body?", options: ["Femur", "Tibia", "Humerus", "Radius"], correctAnswer: "Femur" },
-        { question: "What is the term for animals that eat only plants?", options: ["Herbivores", "Carnivores", "Omnivores", "Detritivores"], correctAnswer: "Herbivores" }
-    ],
-    math: [
-        { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], correctAnswer: "4" },
-        { question: "What is the square root of 16?", options: ["3", "4", "5", "6"], correctAnswer: "4" },
-        { question: "What is the value of Pi rounded to two decimal places?", options: ["3.14", "3.15", "3.13", "3.12"], correctAnswer: "3.14" },
-        { question: "What is 7 x 8?", options: ["54", "56", "58", "60"], correctAnswer: "56" },
-        { question: "What is 50% of 200?", options: ["100", "50", "150", "200"], correctAnswer: "100" },
-        { question: "What is the perimeter of a square with side length 5?", options: ["20", "25", "15", "30"], correctAnswer: "20" },
-        { question: "What is 12 divided by 3?", options: ["4", "5", "6", "3"], correctAnswer: "4" },
-        { question: "What is 9 squared?", options: ["81", "72", "90", "64"], correctAnswer: "81" },
-        { question: "What is the sum of 45 and 55?", options: ["100", "110", "90", "95"], correctAnswer: "100" },
-        { question: "What is the result of 100 - 25?", options: ["75", "70", "80", "65"], correctAnswer: "75" }
-    ],
-    history: [
-        { question: "Who was the first President of the United States?", options: ["Abraham Lincoln", "George Washington", "Thomas Jefferson", "John Adams"], correctAnswer: "George Washington" },
-        { question: "In what year did World War II end?", options: ["1942", "1945", "1950", "1939"], correctAnswer: "1945" },
-        { question: "Who wrote the Declaration of Independence?", options: ["Thomas Jefferson", "John Adams", "George Washington", "Benjamin Franklin"], correctAnswer: "Thomas Jefferson" },
-        { question: "Which country gifted the Statue of Liberty to the United States?", options: ["France", "England", "Germany", "Spain"], correctAnswer: "France" },
-        { question: "What year was the United Nations established?", options: ["1945", "1950", "1939", "1942"], correctAnswer: "1945" },
-        { question: "Who discovered America?", options: ["Christopher Columbus", "Amerigo Vespucci", "Leif Erikson", "Marco Polo"], correctAnswer: "Christopher Columbus" },
-        { question: "Who was the British Prime Minister during World War II?", options: ["Winston Churchill", "Neville Chamberlain", "Margaret Thatcher", "Tony Blair"], correctAnswer: "Winston Churchill" },
-        { question: "What year did the Berlin Wall fall?", options: ["1989", "1990", "1988", "1991"], correctAnswer: "1989" },
-        { question: "Who was the famous Civil Rights leader in the USA?", options: ["Martin Luther King Jr.", "Rosa Parks", "Malcolm X", "Frederick Douglass"], correctAnswer: "Martin Luther King Jr." },
-        { question: "What empire was known as the 'Empire on which the sun never sets'?", options: ["British Empire", "Roman Empire", "Ottoman Empire", "Mongol Empire"], correctAnswer: "British Empire" }
-    ]
+/****************************************************
+ * QuickQuiz with Dynamic 20+ Questions per Category
+ * - Fetches from Open Trivia DB (https://opentdb.com/)
+ * - Falls back to a small local bank if offline
+ ****************************************************/
+
+/* CATEGORY MAP (our names -> OpenTDB category ids) */
+const CATEGORIES = [
+  { key:"all",       label:"All",               otdb:null },
+  { key:"general",   label:"General",           otdb:9  }, // General Knowledge
+  { key:"literature",label:"Literature",        otdb:10 }, // Books
+  { key:"movies",    label:"Movies",            otdb:11 }, // Film
+  { key:"sports",    label:"Sports",            otdb:21 },
+  { key:"geography", label:"Geography",         otdb:22 },
+  { key:"history",   label:"History",           otdb:23 },
+  { key:"science",   label:"Science & Nature",  otdb:17 },
+  { key:"computer",  label:"Computers",         otdb:18 },
+  { key:"math",      label:"Mathematics",       otdb:19 },
+  // Biology doesn’t have its own bucket—use Science & Nature (17)
+  { key:"biology",   label:"Biology (Science)", otdb:17 },
+];
+
+/* Fallback local questions (short; used only if fetch fails) */
+const FALLBACK = [
+  {cat:"science",   q:"Symbol for water?", a:["H2O","O2","CO2","H2"], correct:0},
+  {cat:"science",   q:"Largest organ?", a:["Skin","Brain","Liver","Heart"], correct:0},
+  {cat:"computer",  q:"HTML stands for…", a:["Hyper Text Markup Language","Hyperlink Text ML","High Text ML","Hyper Transfer ML"], correct:0},
+  {cat:"computer",  q:"API stands for…", a:["Application Programming Interface","Advanced Programming Integration","Artificial Programming Intelligence","Application Processing Integration"], correct:0},
+  {cat:"biology",   q:"Basic unit of life?", a:["Cell","Tissue","Organ","Molecule"], correct:0},
+  {cat:"math",      q:"7 × 8 =", a:["54","56","58","60"], correct:1},
+  {cat:"history",   q:"First U.S. President?", a:["Lincoln","Washington","Jefferson","Adams"], correct:1},
+  {cat:"geography", q:"Largest ocean?", a:["Atlantic","Indian","Pacific","Arctic"], correct:2},
+  {cat:"literature",q:"Author of '1984'?", a:["George Orwell","Aldous Huxley","Ray Bradbury","J.D. Salinger"], correct:0},
+  {cat:"sports",    q:"Players per soccer team on field?", a:["9","10","11","12"], correct:2},
+  {cat:"movies",    q:"First MCU movie?", a:["Iron Man","The Avengers","Captain America","Thor"], correct:0},
+  {cat:"general",   q:"How many continents?", a:["5","6","7","8"], correct:2},
+];
+
+/* ------- STATE ------- */
+let state = {
+  items: [],
+  i: 0,
+  answers: new Map(), // index -> choice
+  startAt: 0,
+  deadline: 0,
+  timerId: null,
+  settings: { cat:"all", diff:"any", count:20, minutes:5, shuffle:true },
 };
 
-let currentCategory = null;
-let currentQuestionIndex = 0;
-let score = 0;
-function startQuiz(category) {
-    currentCategory = quizData[category];
-    currentQuestionIndex = 0;
-    score = 0;
+/* ------- ELEMENTS ------- */
+const elSetup = document.getElementById('setup');
+const elSetupForm = document.getElementById('setupForm');
+const elQuiz = document.getElementById('quiz');
+const elResults = document.getElementById('results');
 
-    document.getElementById("category-container").style.display = "none";
-    document.getElementById("quiz").style.display = "block";
+const elQuestion = document.getElementById('questionText');
+const elAnswers = document.getElementById('answers');
+const elCounter = document.getElementById('counter');
+const elProgress = document.getElementById('progressBar');
+const elTimer = document.getElementById('timer');
 
-    loadQuestion();
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const submitBtn = document.getElementById('submitBtn');
+
+const reviewList = document.getElementById('reviewList');
+const scorePct = document.getElementById('scorePct');
+const scoreRaw = document.getElementById('scoreRaw');
+const timeUsed = document.getElementById('timeUsed');
+
+/* ------- UTILS ------- */
+const pad2 = n => String(n).padStart(2,'0');
+const fmt = ms => {
+  const s = Math.max(0, Math.floor(ms/1000));
+  return `${pad2(Math.floor(s/60))}:${pad2(s%60)}`;
+};
+const decodeHTML = str => {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = str;
+  return txt.value;
+};
+const shuffle = arr => arr.sort(()=>Math.random()-0.5);
+
+/* Populate category dropdown */
+(function fillCategorySelect(){
+  const sel = document.getElementById('category');
+  sel.innerHTML = '';
+  CATEGORIES.forEach(c=>{
+    const opt = document.createElement('option');
+    opt.value = c.key; opt.textContent = c.label;
+    sel.appendChild(opt);
+  });
+})();
+
+/* ------- FETCH QUESTIONS FROM OPENTDB ------- */
+async function fetchOpenTDB({catKey, diff, count}) {
+  // If "all", we can omit the category filter
+  const cat = CATEGORIES.find(c=>c.key===catKey);
+  const params = new URLSearchParams({ amount: String(count), type: 'multiple' });
+  if (cat && cat.otdb) params.set('category', String(cat.otdb));
+  if (diff && diff !== 'any') params.set('difficulty', diff);
+
+  const url = `https://opentdb.com/api.php?${params.toString()}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch questions.');
+  const data = await res.json();
+  if (!data || !Array.isArray(data.results) || data.results.length === 0) throw new Error('No questions returned.');
+
+  // Map to our format: {cat, q, a[], correct}
+  return data.results.map(r => {
+    const all = [...r.incorrect_answers, r.correct_answer].map(decodeHTML);
+    const shuffled = shuffle(all);
+    const correctIndex = shuffled.indexOf(decodeHTML(r.correct_answer));
+    // Try to infer category key back to our set
+    const inferred = (catKey==='all')
+      ? (CATEGORIES.find(c=>c.otdb && r.category.toLowerCase().includes(c.label.toLowerCase()))?.key || 'general')
+      : catKey;
+    return {
+      cat: inferred,
+      q: decodeHTML(r.question),
+      a: shuffled,
+      correct: correctIndex
+    };
+  });
 }
 
-function loadQuestion() {
-    if (currentQuestionIndex < currentCategory.length) {
-        const questionData = currentCategory[currentQuestionIndex];
-
-        document.getElementById("question").innerText = questionData.question;
-
-        const optionsContainer = document.getElementById("options");
-        optionsContainer.innerHTML = "";
-
-        questionData.options.forEach(option => {
-            const button = document.createElement("button");
-            button.innerText = option;
-            button.onclick = () => checkAnswer(option, questionData.correctAnswer, button);
-            optionsContainer.appendChild(button);
-        });
-    } else {
-        showResults();
-    }
+/* ------- FALLBACK BUILDER ------- */
+function buildFromFallback({catKey, count}) {
+  let items;
+  if (catKey === 'all') items = [...FALLBACK];
+  else items = FALLBACK.filter(q => q.cat === catKey);
+  const pool = items.length ? items : FALLBACK;
+  const times = Math.ceil(count / pool.length);
+  const expanded = [];
+  for (let i=0;i<times;i++) expanded.push(...pool);
+  return shuffle(expanded).slice(0, count);
 }
 
-function checkAnswer(selected, correct, button) {
-    if (selected === correct) {
-        button.classList.add("correct");
-        button.innerText += " (Correct)";
-        score++;
-    } else {
-        button.classList.add("incorrect");
-        button.innerText += " (Incorrect)";
-    }
+/* ------- SETUP FORM SUBMIT ------- */
+elSetupForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const cat = document.getElementById('category').value;
+  const diff = document.getElementById('difficulty').value;
+  const count = Math.max(5, Math.min(50, Number(document.getElementById('count').value) || 20));
+  const minutes = Math.max(0, Math.min(60, Number(document.getElementById('minutes').value) || 0));
+  const doShuffle = document.getElementById('shuffle').checked;
 
-    Array.from(document.getElementById("options").children).forEach(btn => {
-        btn.disabled = true;
-        if (btn.innerText.startsWith(correct) && !btn.classList.contains("correct")) {
-            btn.classList.add("correct");
-        }
-    });
+  state.settings = { cat, diff, count, minutes, shuffle: doShuffle };
 
-    setTimeout(() => {
-        currentQuestionIndex++;
-        loadQuestion();
-    }, 1000);
+  try {
+    let items = await fetchOpenTDB({catKey: cat, diff, count});
+    if (doShuffle) shuffle(items);
+    state.items = items.slice(0, count);
+  } catch (err) {
+    console.warn('Falling back to local bank:', err?.message || err);
+    state.items = buildFromFallback({catKey: cat, count});
+  }
+
+  startQuiz();
+});
+
+/* ------- QUIZ FLOW ------- */
+function startQuiz(){
+  state.i = 0;
+  state.answers.clear();
+  elSetup.classList.add('hidden');
+  elQuiz.classList.remove('hidden');
+  elResults.classList.add('hidden');
+
+  state.startAt = Date.now();
+  state.deadline = state.settings.minutes > 0 ? Date.now() + state.settings.minutes*60000 : 0;
+  if (state.deadline){
+    elTimer.textContent = fmt(state.deadline - Date.now());
+    clearInterval(state.timerId);
+    state.timerId = setInterval(()=>{
+      const left = state.deadline - Date.now();
+      elTimer.textContent = fmt(left);
+      if (left <= 0){
+        clearInterval(state.timerId);
+        finish();
+      }
+    }, 250);
+  } else {
+    elTimer.textContent = '—';
+  }
+
+  render();
 }
 
-function showResults() {
-    document.getElementById("quiz").style.display = "none";
-    document.getElementById("results").style.display = "block";
+function render(){
+  const total = state.items.length || 1;
+  const i = state.i;
+  elCounter.textContent = `Q ${Math.min(i+1,total)}/${total}`;
+  elProgress.style.width = (total <= 1 ? 0 : (i/(total-1))*100) + '%';
 
-    document.getElementById("score").innerText = `You scored ${score} out of ${currentCategory.length}!`;
+  const item = state.items[i] || {q:'No questions found', a:[]};
+  elQuestion.textContent = item.q;
+
+  // answers
+  elAnswers.innerHTML = '';
+  item.a.forEach((text, idx)=>{
+    const id = `q${i}_${idx}`;
+    const label = document.createElement('label');
+    label.className = 'answer';
+    label.innerHTML = `<input type="radio" name="q${i}" id="${id}" value="${idx}"> <span>${text}</span>`;
+    elAnswers.appendChild(label);
+  });
+
+  // restore selection
+  const choice = state.answers.get(i);
+  if (choice != null){
+    const input = elAnswers.querySelector(`input[value="${choice}"]`);
+    if (input) input.checked = true;
+  }
+
+  prevBtn.disabled = i === 0;
+  nextBtn.disabled = i >= total-1;
 }
 
-function resetQuiz() {
-    document.getElementById("results").style.display = "none";
-    document.getElementById("category-container").style.display = "block";
+elAnswers.addEventListener('change', e=>{
+  const pick = Number(e.target.value);
+  if (!Number.isNaN(pick)){
+    state.answers.set(state.i, pick);
+  }
+});
+
+prevBtn.addEventListener('click', ()=>{
+  if (state.i > 0){ state.i--; render(); }
+});
+nextBtn.addEventListener('click', ()=>{
+  if (state.i < state.items.length - 1){ state.i++; render(); }
+});
+submitBtn.addEventListener('click', finish);
+
+/* ------- RESULTS ------- */
+function finish(){
+  clearInterval(state.timerId);
+  elQuiz.classList.add('hidden');
+  elResults.classList.remove('hidden');
+
+  let correct = 0;
+  const frag = document.createDocumentFragment();
+
+  state.items.forEach((q, idx)=>{
+    const li = document.createElement('li');
+    const pick = state.answers.get(idx);
+    if (pick === q.correct) correct++;
+
+    const your = pick != null ? q.a[pick] : '(no answer)';
+    const right = q.a[q.correct];
+
+    li.innerHTML = `<strong>Q${idx+1}:</strong> ${q.q}<br>
+      <em>Your answer:</em> ${your}<br>
+      <em>Correct:</em> ${right}`;
+    frag.appendChild(li);
+  });
+
+  reviewList.innerHTML = '';
+  reviewList.appendChild(frag);
+
+  scoreRaw.textContent = `${correct}/${state.items.length || 0}`;
+  scorePct.textContent = state.items.length ? Math.round((correct/state.items.length)*100) + '%' : '0%';
+
+  const used = Date.now() - state.startAt;
+  timeUsed.textContent = `${Math.floor(used/60000)}:${pad2(Math.floor((used%60000)/1000))}`;
 }
+
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  // restart with same settings and refetch to keep 20+ available
+  elResults.classList.add('hidden');
+  elSetup.classList.remove('hidden');
+});
+
+document.getElementById('newQuizBtn').addEventListener('click', ()=>{
+  clearInterval(state.timerId);
+  elResults.classList.add('hidden');
+  elSetup.classList.remove('hidden');
+});
+
+/* ------- DIALOGS & KEYS ------- */
+document.querySelectorAll('[data-open]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.getElementById(btn.dataset.open)?.showModal();
+  });
+});
+
+window.addEventListener('keydown', (e)=>{
+  if (elQuiz.classList.contains('hidden')) return;
+  if (e.key >= '1' && e.key <= '4'){
+    const idx = Number(e.key) - 1;
+    const input = elAnswers.querySelector(`input[value="${idx}"]`);
+    if (input){ input.checked = true; elAnswers.dispatchEvent(new Event('change')); }
+  } else if (e.key.toLowerCase() === 'n'){ nextBtn.click(); }
+  else if (e.key.toLowerCase() === 'p'){ prevBtn.click(); }
+  else if (e.key === 'Enter'){ submitBtn.click(); }
+});
