@@ -1,6 +1,5 @@
 /****************************************************
- * QuickQuiz with Dynamic 20+ Questions per Category
- * - Fetches from Open Trivia DB (https://opentdb.com/)
+ * - Takes from Open Trivia DB (https://opentdb.com/)
  * - Falls back to a small local bank if offline
  ****************************************************/
 
@@ -36,7 +35,6 @@ const FALLBACK = [
   {cat:"general",   q:"How many continents?", a:["5","6","7","8"], correct:2},
 ];
 
-/* ------- STATE ------- */
 let state = {
   items: [],
   i: 0,
@@ -47,7 +45,6 @@ let state = {
   settings: { cat:"all", diff:"any", count:20, minutes:5, shuffle:true },
 };
 
-/* ------- ELEMENTS ------- */
 const elSetup = document.getElementById('setup');
 const elSetupForm = document.getElementById('setupForm');
 const elQuiz = document.getElementById('quiz');
@@ -68,7 +65,7 @@ const scorePct = document.getElementById('scorePct');
 const scoreRaw = document.getElementById('scoreRaw');
 const timeUsed = document.getElementById('timeUsed');
 
-/* ------- UTILS ------- */
+
 const pad2 = n => String(n).padStart(2,'0');
 const fmt = ms => {
   const s = Math.max(0, Math.floor(ms/1000));
@@ -81,7 +78,7 @@ const decodeHTML = str => {
 };
 const shuffle = arr => arr.sort(()=>Math.random()-0.5);
 
-/* Populate category dropdown */
+
 (function fillCategorySelect(){
   const sel = document.getElementById('category');
   sel.innerHTML = '';
@@ -92,7 +89,7 @@ const shuffle = arr => arr.sort(()=>Math.random()-0.5);
   });
 })();
 
-/* ------- FETCH QUESTIONS FROM OPENTDB ------- */
+
 async function fetchOpenTDB({catKey, diff, count}) {
   // If "all", we can omit the category filter
   const cat = CATEGORIES.find(c=>c.key===catKey);
@@ -106,7 +103,7 @@ async function fetchOpenTDB({catKey, diff, count}) {
   const data = await res.json();
   if (!data || !Array.isArray(data.results) || data.results.length === 0) throw new Error('No questions returned.');
 
-  // Map to our format: {cat, q, a[], correct}
+
   return data.results.map(r => {
     const all = [...r.incorrect_answers, r.correct_answer].map(decodeHTML);
     const shuffled = shuffle(all);
@@ -124,7 +121,7 @@ async function fetchOpenTDB({catKey, diff, count}) {
   });
 }
 
-/* ------- FALLBACK BUILDER ------- */
+
 function buildFromFallback({catKey, count}) {
   let items;
   if (catKey === 'all') items = [...FALLBACK];
@@ -136,7 +133,7 @@ function buildFromFallback({catKey, count}) {
   return shuffle(expanded).slice(0, count);
 }
 
-/* ------- SETUP FORM SUBMIT ------- */
+
 elSetupForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const cat = document.getElementById('category').value;
@@ -159,7 +156,7 @@ elSetupForm.addEventListener('submit', async (e)=>{
   startQuiz();
 });
 
-/* ------- QUIZ FLOW ------- */
+
 function startQuiz(){
   state.i = 0;
   state.answers.clear();
@@ -232,7 +229,7 @@ nextBtn.addEventListener('click', ()=>{
 });
 submitBtn.addEventListener('click', finish);
 
-/* ------- RESULTS ------- */
+
 function finish(){
   clearInterval(state.timerId);
   elQuiz.classList.add('hidden');
@@ -277,7 +274,7 @@ document.getElementById('newQuizBtn').addEventListener('click', ()=>{
   elSetup.classList.remove('hidden');
 });
 
-/* ------- DIALOGS & KEYS ------- */
+
 document.querySelectorAll('[data-open]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     document.getElementById(btn.dataset.open)?.showModal();
@@ -294,3 +291,4 @@ window.addEventListener('keydown', (e)=>{
   else if (e.key.toLowerCase() === 'p'){ prevBtn.click(); }
   else if (e.key === 'Enter'){ submitBtn.click(); }
 });
+
