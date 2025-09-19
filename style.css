@@ -1,6 +1,6 @@
 :root{
-  --bg:#0b1220;           /* dark navy */
-  --panel:#111827;        /* card bg */
+  --bg:#0b1220;           
+  --panel:#111827;        
   --text:#e6e9ef;
   --muted:#9aa3b2;
   --ring:rgba(255,255,255,.08);
@@ -103,3 +103,4 @@ body{
   .quiz__top{flex-direction:column; align-items:stretch}
   .status{margin-left:0; justify-content:space-between}
 }
+
